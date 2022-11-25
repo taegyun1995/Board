@@ -27,7 +27,12 @@ public class UserService {
         user.setCreatedAt(date);
 
         Optional<User> userByLoginId = userRepository.findByLoginId(user.getLoginId());
-        if (userByLoginId.isPresent() || user.getLoginId().length() < 8) {
+        if (userByLoginId.isPresent() ||
+                user.getLoginId().length() < 8 ||
+                user.getPassword().length() < 8 ||
+                user.getName().length() < 0 ||
+                user.getPhoneNum().length() < 0 ||
+                user.getEmail().length() < 0) {
             return null;
         } else {
             User saveUser = userRepository.save(user);
